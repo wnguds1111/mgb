@@ -9,7 +9,7 @@
 | SCR-02 CBT 종료 페이지 | `04_closed.html` |
 | ADM-01 어드민 웹 설정 | `03_admin.html` |
 | RES-01 키비주얼 · 리소스 요청 | `02_assets.html` |
-| PDF | `export/MergeBallHero_Landing_Spec_2026-10-20.pdf` |
+| PDF | `export/[머지볼] CBT 페이지 기획서_V1.0_20261020.pdf` |
 
 ## 보는 방법
 
