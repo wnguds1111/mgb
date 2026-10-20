@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOC-00 표지 | 머지볼 히어로 랜딩페이지 기획서</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="spec.css">
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         ① 프로젝트 이름과 문서 목록
+         이 블록은 01_landing.html · 02_assets.html 과 **내용이 같아야 한다.**
+         ══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        window.DOC_META_OVERRIDE = {
+            title: '머지볼 히어로',
+            subtitle: 'CBT 랜딩페이지 기획서',
+            version: 'v1.0.0'
+        };
+        window.DOC_TREE_OVERRIDE = [
+            {
+                group: 'DOCUMENT INFO',
+                items: [
+                    { id: 'DOC-00', label: '표지', href: 'index.html' }
+                ]
+            },
+            {
+                group: 'SCREEN STORYBOARD',
+                items: [
+                    { id: 'SCR-01', label: '랜딩 메인', href: '01_landing.html' },
+                    { id: 'SCR-02', label: 'CBT 종료 페이지', href: '04_closed.html' }
+                ]
+            },
+            {
+                group: 'ADMIN',
+                items: [
+                    { id: 'ADM-01', label: '웹 설정', href: '03_admin.html' }
+                ]
+            },
+            {
+                group: 'RESOURCE',
+                items: [
+                    { id: 'RES-01', label: '키비주얼 · 리소스 요청', href: '02_assets.html' }
+                ]
+            }
+        ];
+    </script>
+
+    <style>
+        .cv-h3 {
+            font-size: 17px; font-weight: 800; color: #0F172A; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .cv-h3 span.no {
+            background: #1E293B; color: #FFFFFF; width: 22px; height: 22px; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800;
+        }
+        .cv-sec { margin-bottom: 34px; }
+        .cv-lead { font-size: 14px; color: #64748B; line-height: 1.7; margin-bottom: 14px; }
+    </style>
+</head>
+<body>
+
+    <aside class="app-sidebar" id="app-sidebar" data-doc-id="DOC-00"></aside>
+
+    <main class="app-main">
+        <header class="app-topbar">
+            <div class="topbar-left-zone">
+                <button class="sidebar-toggle-trigger" id="sidebar-toggle-btn" title="메뉴 열기" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <span class="page-badge">DOC-00</span>
+                <span class="page-heading">표지 (Document Overview)</span>
+            </div>
+        </header>
+
+        <div class="app-content-body">
+            <div class="doc-section-card">
+
+                <div class="cover-hero-box">
+                    <span style="font-size: 14px; font-weight: 800; background: rgba(225, 29, 72, 0.28); border: 1px solid var(--brand-primary); padding: 4px 12px; border-radius: 20px; color: #FDA4AF; text-transform: uppercase;">Landing Page Specification</span>
+                    <h1>머지볼 히어로 CBT 랜딩페이지 기획서</h1>
+                    <p>머지볼 히어로 CBT 참여를 유도하는 단일 랜딩페이지의 화면 설계와 기능 명세입니다. PC · 태블릿 · 모바일 한 페이지와 모바일 메뉴, 6개 언어 지원, 마켓 이동 동선, 키비주얼 제작 요청을 다룹니다.</p>
+                </div>
+
+                <!-- ============ 1. 프로젝트 개요 ============ -->
+                <div class="cv-sec">
+                    <h3 class="cv-h3"><span class="no">1</span>프로젝트 개요 (Document Info)</h3>
+                    <table class="standard-table">
+                        <tbody>
+                            <tr>
+                                <th style="width: 140px;">문서명</th>
+                                <td><strong>[머지볼히어로] 랜딩페이지 화면 설계서 및 기능 명세서</strong></td>
+                                <th style="width: 140px;">버전</th>
+                                <td><span class="badge-draft" style="background: #FFF1F2; color: var(--brand-primary); border-color: #FDA4AF; font-weight: 800;">v1.0.0 (초안)</span></td>
+                            </tr>
+                            <tr>
+                                <th>대상 서비스</th>
+                                <td>머지볼 히어로 CBT 랜딩페이지 (도메인 <span class="tag tag--warn">확정 필요</span> 웹팀)</td>
+                                <th>작성자</th>
+                                <td>웹기획Unit 이주형</td>
+                            </tr>
+                            <tr>
+                                <th>기준 해상도</th>
+                                <td>PC 1440 · 1920 (콘텐츠 폭 1400 · 1600px) / 태블릿 1024 / 모바일 360</td>
+                                <th>작성일</th>
+                                <td>2026.10.19</td>
+                            </tr>
+                            <tr>
+                                <th>예상 CBT</th>
+                                <td>2026.11.23 (월) 12:00 ~ 2026.11.30 (월) 11:59 <span class="tag tag--warn">확정 필요</span> 사업팀 · 시간대 미정</td>
+                                <th>예상 소프트런칭</th>
+                                <td>2026.12.28 (월) <span class="tag tag--warn">확정 필요</span> 사업팀</td>
+                            </tr>
+                            <tr>
+                                <th>지원 언어</th>
+                                <td colspan="3">한국어 · 영어 · 중국어 번체 · 일본어 · 프랑스어 · 태국어 (6개) — 기본 언어 <b>영어</b>. 시스템 언어가 6개 밖이면 영어로 연다.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ============ 2. 개정 이력 ============ -->
+                <div class="cv-sec">
+                    <h3 class="cv-h3"><span class="no">2</span>문서 개정 이력 (Revision History)</h3>
+                    <table class="standard-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 90px;">버전</th>
+                                <th style="width: 110px;">개정일자</th>
+                                <th style="width: 100px;">작성자</th>
+                                <th>개정 내용 요약</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rev-log">
+                            <tr>
+                                <td><span class="badge-draft" style="background: #FFF1F2; color: var(--brand-primary); border-color: #FDA4AF; font-weight: 800;">v1.0.0</span></td>
+                                <td>2026.10.19</td>
+                                <td>웹기획Unit 이주형</td>
+                                <td>
+                                    <ul class="tb-bullet-list">
+                                        <li><span class="bullet">&bull;</span> 초안 작성</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="spec.js"></script>
+</body>
+</html>

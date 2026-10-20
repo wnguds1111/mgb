@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM-01 웹 설정 | 머지볼 히어로 랜딩페이지 기획서</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="spec.css">
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         ① 프로젝트 이름과 문서 목록
+         이 블록은 index.html · 01_landing.html · 02_assets.html 과 **내용이 같아야 한다.**
+         ══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        window.DOC_META_OVERRIDE = {
+            title: '머지볼 히어로',
+            subtitle: 'CBT 랜딩페이지 기획서',
+            version: 'v1.0.0'
+        };
+        window.DOC_TREE_OVERRIDE = [
+            {
+                group: 'DOCUMENT INFO',
+                items: [
+                    { id: 'DOC-00', label: '표지', href: 'index.html' }
+                ]
+            },
+            {
+                group: 'SCREEN STORYBOARD',
+                items: [
+                    { id: 'SCR-01', label: '랜딩 메인', href: '01_landing.html' },
+                    { id: 'SCR-02', label: 'CBT 종료 페이지', href: '04_closed.html' }
+                ]
+            },
+            {
+                group: 'ADMIN',
+                items: [
+                    { id: 'ADM-01', label: '웹 설정', href: '03_admin.html' }
+                ]
+            },
+            {
+                group: 'RESOURCE',
+                items: [
+                    { id: 'RES-01', label: '키비주얼 · 리소스 요청', href: '02_assets.html' }
+                ]
+            }
+        ];
+    </script>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         ② 이 문서만 쓰는 부품 — 접두사 bo- (게임 웹 관리 백오피스)
+            spec.css 의 adm-* 는 포털 어드민 셸이라 화면 구조가 달라 쓰지 않았다.
+         ══════════════════════════════════════════════════════════════════════ -->
+    <style>
+        .bo-shell { display: flex; min-height: 980px; background: #FFFFFF; font-size: 14.4px; color: #1F2937; }
+
+        /* ---- 좌측 메뉴 ---- */
+        .bo-side { position: relative; width: 258px; flex-shrink: 0; background: #1A1A1A; color: #D1D5DB; }
+        .bo-logo { height: 68px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #2B2B2B; }
+        .bo-logo img { height: 18px; }
+        .bo-sec { padding: 24px 18px 10px; font-size: 12.6px; color: #9CA3AF; }
+        .bo-folder { display: flex; align-items: center; gap: 10px; padding: 10px 22px; font-size: 15px; font-weight: 800; color: #FFFFFF; }
+        .bo-folder .ar { margin-left: auto; font-size: 11px; color: #9CA3AF; }
+        .bo-list { list-style: none; margin: 0; padding: 0 16px; }
+        .bo-item { display: flex; align-items: center; gap: 12px; padding: 9px 18px; border-radius: 6px; font-size: 13.8px; color: #D1D5DB; }
+        .bo-item i { font-size: 13px; color: #6B7280; width: 14px; }
+        .bo-item.on { background: #2B2B2B; color: #FFFFFF; font-weight: 800; }
+        .bo-item.on i { color: #FFFFFF; }
+        .bo-new { margin-left: auto; padding: 1px 7px; border-radius: 9px; background: var(--brand-primary); color: #FFFFFF; font-size: 10.8px; font-weight: 800; }
+        .bo-folder--sub { font-size: 14.4px; font-weight: 700; color: #E5E7EB; padding-top: 16px; }
+
+        /* ---- 본문 ---- */
+        .bo-main { flex: 1; min-width: 0; background: #F8F9FB; }
+        .bo-top { height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 168px 0 192px; background: #FFFFFF; border-bottom: 1px dashed #E5E7EB; }
+        .bo-title { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; color: #111827; }
+        .bo-top-right { display: flex; align-items: center; gap: 20px; color: #6B7280; font-size: 18px; }
+        .bo-avatar { width: 40px; height: 40px; border-radius: 6px; background: #D1D5DB; display: inline-flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 20px; }
+        .bo-tabs { display: flex; gap: 8px; padding: 8px 192px 8px; background: #FFFFFF; }
+        .bo-tab { padding: 11px 20px; border-radius: 8px; font-size: 14.4px; font-weight: 700; color: #111827; }
+        .bo-tab.on { background: #EAF2FF; color: #2563EB; }
+        .bo-body { padding: 30px 168px 60px 192px; }
+        .bo-subtabs { display: flex; border-bottom: 1px solid #E5E7EB; }
+        .bo-subtab { padding: 10px 14px; font-size: 14.4px; color: #2563EB; border: 1px solid transparent; border-bottom: 0; border-radius: 6px 6px 0 0; margin-bottom: -1px; cursor: pointer; }
+        .bo-subtab.on { color: #111827; background: #FFFFFF; border-color: #E5E7EB; }
+        .bo-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-top: 0; padding: 14px 30px 30px; }
+        .bo-opt { position: relative; padding-top: 22px; }
+        .bo-opt-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 14.4px; color: #111827; }
+        .bo-opt-tools { display: flex; gap: 14px; color: #9CA3AF; font-size: 12.6px; }
+        .bo-opt-row { display: grid; grid-template-columns: 286px 1fr; gap: 18px; }
+        .bo-key, .bo-val {
+            height: 44px; display: flex; align-items: center; padding: 0 14px; border-radius: 6px;
+            font-size: 15px; color: #374151; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+        }
+        .bo-key { background: #F3F4F6; }
+        .bo-val { background: #FFFFFF; border: 1px solid #D1D5DB; color: #111827; }
+        .bo-val--date { background: #F3F4F6; border-color: #F3F4F6; }
+        .bo-val--select { justify-content: space-between; }
+        .bo-val--select i { font-size: 12px; color: #6B7280; }
+        [data-bo-cat].is-hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <aside class="app-sidebar" id="app-sidebar" data-doc-id="ADM-01"></aside>
+
+    <main class="app-main">
+        <header class="app-topbar">
+            <div class="topbar-left-zone">
+                <button class="sidebar-toggle-trigger" id="sidebar-toggle-btn" title="메뉴 열기" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <span class="page-badge">ADM-01</span>
+                <span class="page-heading">웹 설정</span>
+            </div>
+            <div class="topbar-page-nav"></div>
+        </header>
+
+        <div class="app-content-body">
+            <div id="pc-spec-view" class="screen-spec-grid">
+
+                <!-- ════════════════════════ 좌 : 와이어프레임 ════════════════════════ -->
+                <div class="canvas-col">
+
+                    <div class="canvas-section" id="admin01" data-screen
+                         data-screen-code="ADM-01" data-screen-label="웹 설정">
+                        <div class="canvas-card">
+                            <div class="wf-hub-canvas">
+                                <div class="bo-shell">
+
+                                    <!-- 좌측 메뉴 -->
+                                    <aside class="bo-side">
+                                        <div class="bo-logo"><img src="img/gravity_logo_white.png" alt="GRAVITY"></div>
+                                        <div class="bo-sec">게임 웹 관리</div>
+                                        <div class="bo-folder"><i class="fa-solid fa-folder"></i>모바일 게임<i class="fa-solid fa-chevron-up ar"></i></div>
+                                        <ul class="bo-list">
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>WITH</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>라그나로크 V</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>라그나로크 비긴즈</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>Poring merge NFT</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>뮈렌:천년의여정</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>이상한 나라의 라그나로크</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>더 라그나로크</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>포링러시</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>라그나로크 오리진</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>라그나로크 : Back to Glory</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>냥코2</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>라그나로크 : 아이들</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>이번 라그나로크의 주인공은 바로 접니다만!</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>라그나로크M</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>레퀴엠M</li>
+                                            <li class="bo-item"><i class="fa-regular fa-file"></i>NBA RISE</li>
+                                            <li class="bo-item on">
+                                                <i class="fa-regular fa-file"></i>머지볼 히어로<span class="bo-new">NEW</span>
+                                            </li>
+                                        </ul>
+                                        <div class="bo-folder bo-folder--sub"><i class="fa-regular fa-file"></i>확률 관리</div>
+                                    </aside>
+
+                                    <!-- 본문 -->
+                                    <div class="bo-main">
+                                        <div class="bo-top">
+                                            <div class="bo-title"><i class="fa-regular fa-bookmark"></i>머지볼 히어로 - 웹 설정</div>
+                                            <div class="bo-top-right"><i class="fa-solid fa-sun"></i><span class="bo-avatar"><i class="fa-solid fa-user"></i></span></div>
+                                        </div>
+                                        <div class="bo-tabs">
+                                            <span class="bo-tab on">웹 설정</span>
+                                        </div>
+
+                                        <div class="bo-body">
+                                            <div class="bo-subtabs">
+                                                <span class="bo-subtab on" data-bo-filter="all">모든 옵션</span>
+                                                <span class="bo-subtab" data-bo-filter="link">링크</span>
+                                                <span class="bo-subtab" data-bo-filter="cbt">CBT</span>
+                                            </div>
+                                            <div class="bo-card">
+
+                                                <div data-bo-cat="cbt">
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[CBT] 1 . CBT 시작일
+                                                            <span class="bo-opt-tools">
+                                                                <i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="bo-opt-row"><div class="bo-key">cbt_start_date</div><div class="bo-val bo-val--date">2026-11-23 12:00:00</div></div>
+                                                    </div>
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[CBT] 2 . CBT 종료일<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">cbt_end_date</div><div class="bo-val bo-val--date">2026-11-30 11:59:59</div></div>
+                                                    </div>
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[CBT] 3 . 종료 페이지 노출<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">cbt_closed_page</div><div class="bo-val bo-val--select">Y<i class="fa-solid fa-chevron-down"></i></div></div>
+                                                    </div>
+                                                </div>
+
+                                                <div data-bo-cat="link">
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[링크] 1 . CBT CTA 버튼 링크<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">link_cbt_cta</div><div class="bo-val">https://mbh.go.link/JoinCBT</div></div>
+                                                    </div>
+                                                </div>
+
+                                                <div data-bo-cat="link">
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[링크] 2 . Google Play 링크<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">link_google</div><div class="bo-val">https://mbh.go.link/Gp7Xk</div></div>
+                                                    </div>
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[링크] 3 . AppStore 링크<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">link_apple</div><div class="bo-val">https://mbh.go.link/Ap3Qw</div></div>
+                                                    </div>
+                                                </div>
+
+                                                <div data-bo-cat="link">
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[링크] 4 . Discord 링크<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">link_discord</div><div class="bo-val">https://discord.gg/mergeballhero</div></div>
+                                                    </div>
+                                                    <div class="bo-opt">
+                                                        <div class="bo-opt-head">[링크] 5 . Facebook 링크<span class="bo-opt-tools"><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash-can"></i></span></div>
+                                                        <div class="bo-opt-row"><div class="bo-key">link_facebook</div><div class="bo-val">https://www.facebook.com/mergeballhero</div></div>
+                                                    </div>
+                                                </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <script src="spec.js"></script>
+    <script>
+        /* 옵션 분류 탭 — 접두어로 나눈 옵션만 보인다 (상태 클래스는 on · is-hidden 만 쓴다) */
+        document.querySelectorAll('[data-bo-filter]').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var f = tab.getAttribute('data-bo-filter');
+                document.querySelectorAll('[data-bo-filter]').forEach(function (t) { t.classList.toggle('on', t === tab); });
+                document.querySelectorAll('[data-bo-cat]').forEach(function (o) {
+                    o.classList.toggle('is-hidden', f !== 'all' && o.getAttribute('data-bo-cat') !== f);
+                });
+                if (typeof _vpApply === 'function') _vpApply();
+            });
+        });
+    </script>
+</body>
+</html>

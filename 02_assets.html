@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RES-01 키비주얼 · 리소스 요청 | 머지볼 히어로 랜딩페이지 기획서</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="spec.css">
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         ① 프로젝트 이름과 문서 목록
+         이 블록은 index.html · 01_landing.html 과 **내용이 같아야 한다.**
+         ══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        window.DOC_META_OVERRIDE = {
+            title: '머지볼 히어로',
+            subtitle: 'CBT 랜딩페이지 기획서',
+            version: 'v1.0.0'
+        };
+        window.DOC_TREE_OVERRIDE = [
+            {
+                group: 'DOCUMENT INFO',
+                items: [
+                    { id: 'DOC-00', label: '표지', href: 'index.html' }
+                ]
+            },
+            {
+                group: 'SCREEN STORYBOARD',
+                items: [
+                    { id: 'SCR-01', label: '랜딩 메인', href: '01_landing.html' },
+                    { id: 'SCR-02', label: 'CBT 종료 페이지', href: '04_closed.html' }
+                ]
+            },
+            {
+                group: 'ADMIN',
+                items: [
+                    { id: 'ADM-01', label: '웹 설정', href: '03_admin.html' }
+                ]
+            },
+            {
+                group: 'RESOURCE',
+                items: [
+                    { id: 'RES-01', label: '키비주얼 · 리소스 요청', href: '02_assets.html' }
+                ]
+            }
+        ];
+    </script>
+
+    <!-- ② 이 문서만 쓰는 부품 — 표지와 같은 문장형 문서 부품 + 이미지 견본 -->
+    <style>
+        .cv-h3 {
+            font-size: 17px; font-weight: 800; color: #0F172A; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .cv-h3 span.no {
+            background: #1E293B; color: #FFFFFF; width: 22px; height: 22px; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800;
+        }
+        .cv-sec { margin-bottom: 34px; }
+        .cv-lead { font-size: 14px; color: #64748B; line-height: 1.7; margin-bottom: 14px; }
+        .rs-refs { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: start; }
+        .rs-fig { margin: 0; border: 1px solid var(--border-main); border-radius: 10px; overflow: hidden; background: #F8FAFC; }
+        .rs-fig img { display: block; width: 100%; height: auto; }
+        .rs-fig figcaption { padding: 10px 14px; font-size: 13.2px; color: #475569; line-height: 1.6; border-top: 1px solid var(--border-main); }
+        .rs-fig figcaption b { color: #0F172A; }
+        .rs-orbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+        .rs-orb { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 10px; border: 1px solid var(--border-main); border-radius: 10px; background: #F8FAFC; }
+        .rs-orb img { width: 72px; height: 72px; }
+        .rs-orb b { font-size: 14px; color: #0F172A; }
+        .rs-orb span { font-size: 12.6px; color: #64748B; font-family: 'JetBrains Mono', monospace; }
+        .rs-todo { color: #92400E; font-weight: 700; }
+        .rs-loc td, .rs-loc th { font-size: 13.2px; }
+        .rs-loc td.src { font-weight: 700; color: #0F172A; }
+    </style>
+</head>
+<body>
+
+    <aside class="app-sidebar" id="app-sidebar" data-doc-id="RES-01"></aside>
+
+    <main class="app-main">
+        <header class="app-topbar">
+            <div class="topbar-left-zone">
+                <button class="sidebar-toggle-trigger" id="sidebar-toggle-btn" title="메뉴 열기" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <span class="page-badge">RES-01</span>
+                <span class="page-heading">키비주얼 · 리소스 요청 (Design Request)</span>
+            </div>
+            <div class="topbar-page-nav"></div>
+        </header>
+
+        <div class="app-content-body">
+            <div class="doc-section-card">
+
+                <!-- ============ 1. 참고 링크 ============ -->
+                <div class="cv-sec">
+                    <h3 class="cv-h3"><span class="no">1</span>참고 링크</h3>
+                    <table class="standard-table">
+                        <tbody>
+                            <tr>
+                                <th style="width: 140px;">디자인 리소스</th>
+                                <td><a href="https://gravity.dooray.com/share/drive-files/jp3kgvh14yt0.4QxON2cmSFu3wWCiBXJGsA" target="_blank" rel="noopener" style="color: var(--brand-primary); font-weight: 700; word-break: break-all;">https://gravity.dooray.com/share/drive-files/jp3kgvh14yt0.4QxON2cmSFu3wWCiBXJGsA</a> <span style="color: #94A3B8;">(Dooray 드라이브)</span></td>
+                            </tr>
+                            <tr>
+                                <th>게임 AFK</th>
+                                <td><a href="https://drive.google.com/file/d/1Vf5vQNvQwCFJyMa2-j_det7ng84B1LYz/view" target="_blank" rel="noopener" style="color: var(--brand-primary); font-weight: 700; word-break: break-all;">https://drive.google.com/file/d/1Vf5vQNvQwCFJyMa2-j_det7ng84B1LYz/view</a> <span style="color: #94A3B8;">(Google 드라이브)</span></td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">벤치마킹<br><span style="font-weight: 600; color: #64748B;">구슬 인터랙션</span></th>
+                                <td><a href="https://www.framer.com/marketplace/components/caMIZnXoJOpFLCk29iwY/" target="_blank" rel="noopener" style="color: var(--brand-primary); font-weight: 700; word-break: break-all;">https://www.framer.com/marketplace/components/caMIZnXoJOpFLCk29iwY/</a><br><span style="color: #64748B;">Interactive Balls (Framer) — 커서를 피해 밀려나는 구체 · 스크롤 패럴랙스. SCR-01 핀 9 반발 동작 참고</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://www.framer.com/marketplace/components/gravitypills/" target="_blank" rel="noopener" style="color: var(--brand-primary); font-weight: 700; word-break: break-all;">https://www.framer.com/marketplace/components/gravitypills/</a><br><span style="color: #64748B;">GravityPills (Framer) — 오브젝트가 떨어져 쌓이고 잡아서 던지기. SCR-01 핀 9 진입 · 드래그 동작 참고</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="https://www.framer.com/marketplace/components/bouncingballs/" target="_blank" rel="noopener" style="color: var(--brand-primary); font-weight: 700; word-break: break-all;">https://www.framer.com/marketplace/components/bouncingballs/</a><br><span style="color: #64748B;">BouncingBalls (Framer) — 커서로 밀면 공들이 흩어지고 튕긴다. SCR-01 핀 9 충돌 · 튕김 동작 참고</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ============ 2. 키비주얼 콘셉트 ============ -->
+                <div class="cv-sec">
+                    <h3 class="cv-h3"><span class="no">2</span>키비주얼 콘셉트 (원본 PPT 6장)</h3>
+                    <p class="cv-lead">키비주얼은 <b>2~3가지 콘셉트</b>로 제작을 요청할 예정이며, 아래는 그중 한 안입니다. SCR-01 핀 5의 자리에 들어갑니다.</p>
+                    <table class="standard-table">
+                        <tbody>
+                            <tr>
+                                <th style="width: 140px;">장면</th>
+                                <td>메인 영웅들이 밝은 들판에서 함께 돌격한다. 머지볼 히어로의 핵심 오브젝트인 <b>구슬</b>이 영웅 주위를 떠다닌다.</td>
+                            </tr>
+                            <tr>
+                                <th>구도</th>
+                                <td>주인공 <b>루비</b>를 중앙에 두고 다른 영웅들이 함께 전진한다. 영웅마다 다른 외형과 무기가 보이게 한다.</td>
+                            </tr>
+                            <tr>
+                                <th>액션 연출</th>
+                                <td>돌격하는 느낌이 전달되도록 땅 먼지 · 이동 궤적 · 빛으로 표현한다.</td>
+                            </tr>
+                            <tr>
+                                <th>분위기</th>
+                                <td>전체적으로 밝고 경쾌한 판타지 모험.</td>
+                            </tr>
+                            <tr>
+                                <th>구슬</th>
+                                <td>아래 4절 디자인 에셋의 구슬 5종을 쓴다. 구슬이 바뀌면 기획에서 업데이트해 전달한다.</td>
+                            </tr>
+                            <tr>
+                                <th>화면 배치 조건</th>
+                                <td>
+                                    <ul class="tb-bullet-list">
+                                        <li><span class="bullet">&bull;</span> <b>PC 가로</b> — 게임 로고 · CBT 문구 · CTA · 배지가 왼쪽에 얹힌다. 화면 왼쪽 40%에는 인물을 두지 않는다.</li>
+                                        <li><span class="bullet">&bull;</span> <b>모바일 세로</b> — 인물은 위쪽 절반 안에 둔다. 아래쪽 절반에 로고 · 문구 · CTA · 배지가 얹힌다.</li>
+                                        <li><span class="bullet">&bull;</span> 글자가 얹히는 쪽은 개발에서 어두운 그라데이션을 깐다 — 그 쪽에 밝은 하늘만 두지 말고 명암 차이를 남겨 달라.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ============ 3. 참고 이미지 ============ -->
+                <div class="cv-sec">
+                    <h3 class="cv-h3"><span class="no">3</span>참고 이미지 (요청 예시)</h3>
+                    <p class="cv-lead">원본 PPT에 첨부된 예시입니다. <b>확정안이 아니라 방향 참고용</b>입니다.</p>
+                    <div class="rs-refs">
+                        <figure class="rs-fig">
+                            <img src="img/kv_ref_pc.png" alt="키비주얼 예시 — 영웅 다섯이 들판을 달리고 색색의 구슬이 주위를 떠다니는 가로 이미지">
+                            <figcaption><b>PC 가로 예시</b> · 원본 1671×941 · 중앙에 루비(빨간 마녀 모자), 좌우로 영웅들이 돌격</figcaption>
+                        </figure>
+                        <figure class="rs-fig">
+                            <img src="img/kv_ref_mo.png" alt="키비주얼 예시 — 같은 장면의 세로 구도 이미지">
+                            <figcaption><b>모바일 세로 예시</b> · 원본 486×863</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- ============ 4. 디자인 에셋 ============ -->
+                <div class="cv-sec">
+                    <h3 class="cv-h3"><span class="no">4</span>디자인 에셋</h3>
+                    <p class="cv-lead">키비주얼에 그대로 쓰는 기본 구슬 5종입니다. 원본 파일은 1절 <b>디자인 리소스</b> 링크에서 받습니다. 이름은 이 문서에서 부르기 위한 임시 이름이며, 게임 내 공식 명칭은 <span class="tag tag--warn">확정 필요</span> 게임 개발팀.</p>
+                    <div class="rs-orbs">
+                        <div class="rs-orb"><img src="img/orb_1.png" alt="보라색 크리스탈 구슬"><b>보라 · 크리스탈</b><span>orb_1.png</span></div>
+                        <div class="rs-orb"><img src="img/orb_2.png" alt="빨간색 불꽃 구슬"><b>빨강 · 불꽃</b><span>orb_2.png</span></div>
+                        <div class="rs-orb"><img src="img/orb_3.png" alt="파란색 물방울 구슬"><b>파랑 · 물방울</b><span>orb_3.png</span></div>
+                        <div class="rs-orb"><img src="img/orb_4.png" alt="초록색 잎 구슬"><b>초록 · 잎</b><span>orb_4.png</span></div>
+                        <div class="rs-orb"><img src="img/orb_5.png" alt="노란색 빛 구슬"><b>노랑 · 빛</b><span>orb_5.png</span></div>
+                    </div>
+                </div>
+
+                <!-- ============ 5. 언어별 문구표 ============ -->
+                <div>
+                    <h3 class="cv-h3"><span class="no">5</span>언어별 문구표</h3>
+                    <p class="cv-lead">화면 문구는 이미지가 아닌 텍스트로 넣으므로 6개 언어 번역이 필요합니다. English가 원문이며, 나머지는 현지화팀이 채웁니다. 일정 숫자는 번역하지 않습니다.</p>
+                    <table class="standard-table rs-loc">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">위치</th>
+                                <th style="width: 220px;">English (원문)</th>
+                                <th>한국어</th>
+                                <th>繁體中文</th>
+                                <th>日本語</th>
+                                <th>Français</th>
+                                <th>ภาษาไทย</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SCR-01 핀 6</td>
+                                <td class="src">CBT OPEN!</td>
+                                <td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td>
+                            </tr>
+                            <tr>
+                                <td>SCR-01 핀 6</td>
+                                <td class="src">2026.11.23 12:00 – 2026.11.30 11:59</td>
+                                <td colspan="5" style="color: #64748B;">번역하지 않음 — 모든 언어 같은 숫자 형식(요일 없음). 예상 일정이며 확정 일정 · 시간대는 <span class="tag tag--warn">확정 필요</span> 사업팀</td>
+                            </tr>
+                            <tr>
+                                <td>SCR-01 핀 7</td>
+                                <td class="src">JOIN CBT NOW</td>
+                                <td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td>
+                            </tr>
+                            <tr>
+                                <td>SCR-02</td>
+                                <td class="src">CBT CLOSED</td>
+                                <td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td>
+                            </tr>
+                            <tr>
+                                <td>SCR-02</td>
+                                <td class="src">Thank you for joining the Merge Ball Hero CBT!</td>
+                                <td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td>
+                            </tr>
+                            <tr>
+                                <td>모바일 메뉴</td>
+                                <td class="src">LANGUAGE · COMMUNITY · DOWNLOAD</td>
+                                <td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td><td class="rs-todo">번역 필요</td>
+                            </tr>
+                            <tr>
+                                <td>푸터</td>
+                                <td class="src">© Gravity Co., LTD. All Rights Reserved.</td>
+                                <td colspan="5" style="color: #64748B;">번역하지 않음 — 모든 언어 영문 그대로</td>
+                            </tr>
+                            <tr>
+                                <td>푸터</td>
+                                <td class="src">회사 정보 · 모바일 개인정보 처리방침</td>
+                                <td colspan="5" style="color: #64748B;">한국어 원문 고정. 해외 언어에서 노출 여부는 <span class="tag tag--warn">확정 필요</span> 법무</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="spec.js"></script>
+</body>
+</html>

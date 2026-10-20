@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCR-01 랜딩페이지 | 머지볼 히어로 랜딩페이지 기획서</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="spec.css">
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         ① 프로젝트 이름과 문서 목록
+         이 블록은 index.html · 02_assets.html 과 **내용이 같아야 한다.**
+         ══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        window.DOC_META_OVERRIDE = {
+            title: '머지볼 히어로',
+            subtitle: 'CBT 랜딩페이지 기획서',
+            version: 'v1.0.0'
+        };
+        window.DOC_TREE_OVERRIDE = [
+            {
+                group: 'DOCUMENT INFO',
+                items: [
+                    { id: 'DOC-00', label: '표지', href: 'index.html' }
+                ]
+            },
+            {
+                group: 'SCREEN STORYBOARD',
+                items: [
+                    { id: 'SCR-01', label: '랜딩 메인', href: '01_landing.html' },
+                    { id: 'SCR-02', label: 'CBT 종료 페이지', href: '04_closed.html' }
+                ]
+            },
+            {
+                group: 'ADMIN',
+                items: [
+                    { id: 'ADM-01', label: '웹 설정', href: '03_admin.html' }
+                ]
+            },
+            {
+                group: 'RESOURCE',
+                items: [
+                    { id: 'RES-01', label: '키비주얼 · 리소스 요청', href: '02_assets.html' }
+                ]
+            }
+        ];
+    </script>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         ② 이 문서만 쓰는 부품 — 접두사 mh- (merge-ball hero)
+            mb- 는 spec.js 프로토타입이 회원가입 부품으로 쓰고 있어 피했다.
+         ══════════════════════════════════════════════════════════════════════ -->
+    <style>
+        /* ---- 히어로 (키비주얼 자리) ---- */
+        .mh-hero {
+            position: relative; overflow: hidden; min-height: 1080px;   /* 첫 화면(100vh) 전체 — 1920×1080 기준 */
+            display: flex; flex-direction: column;
+            background: linear-gradient(to top right, transparent calc(50% - 0.7px), #CBD5E1 50%, transparent calc(50% + 0.7px)), linear-gradient(to bottom right, transparent calc(50% - 0.7px), #CBD5E1 50%, transparent calc(50% + 0.7px)), #E9EDF2;   /* 스토리보드 톤 — X 박스 = 이미지 자리 */
+        }
+        .mh-kv-label {
+            position: absolute; right: 7%; top: 50%; transform: translateY(-50%); z-index: 0;
+            padding: 14px 18px; border: 1.5px dashed #94A3B8; border-radius: 10px; background: rgba(255, 255, 255, 0.85);
+            font-size: 14px; font-weight: 800; color: #475569; text-align: center; line-height: 1.7;
+        }
+        .mh-kv-label small { display: block; font-size: 12.6px; font-weight: 600; }
+
+        /* ---- GNB (키비주얼 위에 겹친다) ---- */
+        .mh-gnb {
+            position: relative; z-index: 2; padding: 18px 20px;
+            border-bottom: 1px dashed #CBD5E1;
+        }
+        .mh-gnb-inner { display: flex; align-items: center; justify-content: space-between; }
+        .mh-gnb-right { display: flex; align-items: center; gap: 10px; }
+        .mh-logo-ph {
+            display: inline-flex; align-items: center; justify-content: center; text-align: center;
+            border: 1.5px dashed #64748B; border-radius: 8px;
+            color: #334155; font-size: 12.6px; font-weight: 800; line-height: 1.4;
+            background: rgba(255, 255, 255, 0.85);
+        }
+        .mh-ico {
+            width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: #FFFFFF; border: 1px solid #94A3B8;
+            color: #334155; font-size: 17px;
+        }
+        .mh-badge {
+            display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 13px 0 11px;
+            background: #000000; border: 1px solid #A6A6A6; border-radius: 8px; color: #FFFFFF;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .mh-badge i { font-size: 19px; }
+        .mh-badge span { display: flex; flex-direction: column; font-size: 14px; font-weight: 700; line-height: 1.05; }
+        .mh-badge small { font-size: 9px; font-weight: 600; letter-spacing: 0.2px; }
+        .mh-badge--lg { height: 54px; padding: 0 18px 0 15px; gap: 10px; }
+        .mh-badge--lg i { font-size: 25px; }
+        .mh-badge--lg span { font-size: 18px; }
+        .mh-badge--lg small { font-size: 11px; }
+        .mh-lang {
+            position: relative; height: 40px; padding: 0 14px; border-radius: 20px; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #FFFFFF; border: 1px solid #94A3B8;
+            color: #334155; font-size: 14.4px; font-weight: 700; white-space: nowrap;
+        }
+        .mh-lang i { font-size: 11px; }
+        .mh-lang .proto-menu { left: auto; right: 0; min-width: 170px; }
+
+        /* ---- 히어로 본문 ---- */
+        .mh-body { position: relative; z-index: 1; flex: 1; display: flex; align-items: center; padding: 40px 20px 270px; }
+        .mh-body { pointer-events: none; }   /* 아래 구슬 띠를 누를 수 있게 — 콘텐츠만 받는다 */
+        .mh-col { pointer-events: auto; max-width: 560px; display: flex; flex-direction: column; align-items: flex-start; }
+        .mh-title { margin-top: 30px; font-size: 64px; font-weight: 900; letter-spacing: -1px; color: #0F172A; line-height: 1.05; }
+        .mh-date { margin-top: 14px; font-size: 21px; font-weight: 700; color: #334155; }
+        .mh-cta {
+            margin-top: 34px; width: 340px; height: 66px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            background: var(--brand-primary); color: #FFFFFF; text-decoration: none;
+            font-size: 21px; font-weight: 900; letter-spacing: 0.3px;
+            box-shadow: none;
+        }
+        .mh-badges { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+        /* ---- 모바일 햄버거 메뉴 (모바일 360 프레임 안 서랍) ---- */
+        .mh-menu-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #1E293B; }
+        .mh-menu-x { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; color: #E2E8F0; }
+        .mh-menu-body { flex: 1; padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; }
+        .mh-menu-cap { font-size: 12px; font-weight: 800; color: #94A3B8; letter-spacing: 0.4px; margin-top: 10px; }
+        .mh-menu-cap:first-child { margin-top: 0; }
+        .mh-menu-select {
+            position: relative; height: 48px; padding: 0 16px; border-radius: 10px; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between;
+            background: #1E293B; border: 1px solid #334155; font-size: 15px; font-weight: 700; color: #FFFFFF;
+        }
+        .mh-menu-select .proto-menu { color: #0F172A; }
+        .mh-menu-btn {
+            height: 48px; padding: 0 16px; border-radius: 10px;
+            display: flex; align-items: center; gap: 12px;
+            background: #1E293B; border: 1px solid #334155; font-size: 15px; font-weight: 700; color: #FFFFFF;
+        }
+        .mh-menu-btn i { width: 20px; text-align: center; font-size: 18px; }
+        .mh-menu-btn .ar { margin-left: auto; font-size: 12px; color: #64748B; }
+        .mh-menu-badges { display: flex; gap: 10px; }
+        .mh-menu-badges .mh-badge { flex: 1; justify-content: center; height: 46px; }
+        .mh-menu-foot { padding: 16px 20px 20px; font-size: 12px; color: #64748B; border-top: 1px solid #1E293B; }
+
+        /* ---- 태블릿 · 모바일 프레임 안 ---- */
+        .mh-mo-hero { position: relative; overflow: hidden; background: linear-gradient(to top right, transparent calc(50% - 0.7px), #CBD5E1 50%, transparent calc(50% + 0.7px)), linear-gradient(to bottom right, transparent calc(50% - 0.7px), #CBD5E1 50%, transparent calc(50% + 0.7px)), #E9EDF2; }
+        .mh-mo-hero > * { position: relative; z-index: 1; }
+        .mh-mo-hero > .mh-kv-label, .mh-mo-hero > .mh-orbs { position: absolute; z-index: 0; }
+        .mh-mo-gnb { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
+        .mh-mo-gnb .mh-gnb-right { gap: 8px; }
+        .mh-mo-gnb .mh-ico { width: 34px; height: 34px; font-size: 15px; }
+        .mh-mo-gnb .mh-badge { height: 34px; padding: 0 10px 0 9px; }
+        .mh-mo-gnb .mh-badge span { font-size: 12px; }
+        .mh-mo-gnb .mh-badge small { font-size: 8px; }
+        .mh-mo-gnb .mh-lang { height: 34px; font-size: 13px; padding: 0 11px; }
+        .mh-mo-burger { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; color: #334155; cursor: pointer; }
+        .mh-mo-kv { text-align: center; padding: 26px 16px 0; font-size: 12px; font-weight: 800; color: #64748B; }
+        .mh-mo-body { padding: 0 20px 170px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .mh-mo-body--tab { align-items: flex-start; text-align: left; padding: 60px 40px 180px; }
+        .mh-mo-title { margin-top: 16px; font-size: 34px; font-weight: 900; color: #0F172A; line-height: 1.1; }
+        .mh-mo-date { margin-top: 8px; font-size: 14.4px; font-weight: 700; color: #334155; }
+        .mh-mo-cta {
+            margin-top: 20px; width: 100%; height: 52px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: var(--brand-primary); color: #FFFFFF; font-size: 16.8px; font-weight: 900; text-decoration: none;
+        }
+        .mh-mo-badges { margin-top: 12px; display: flex; gap: 8px; width: 100%; }
+        .mh-mo-badges .mh-badge { flex: 1; justify-content: center; height: 44px; }
+        .mo-drawer .mo-drawer-panel.mh-full { width: 100%; max-width: none; background: #0F172A; color: #FFFFFF; }
+
+        /* ---- 푸터 (GNJOY 공통 푸터 기준) ---- */
+        .mh-foot { position: relative; background: #111111; padding: 40px 20px 34px; text-align: center; color: #8A8F98; }
+        .mh-foot-info { font-size: 12.6px; line-height: 1.9; }
+        .mh-foot-info a { color: #B0B5BD; text-decoration: underline; }
+        .mh-foot-rates { margin-top: 34px; display: flex; justify-content: center; gap: 16px; }
+        .mh-rate {
+            width: 64px; height: 76px; border: 1.5px dashed #6B7280; border-radius: 6px; background: #1F2937;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+            font-size: 10.8px; font-weight: 800; color: #E5E7EB;
+        }
+        .mh-rate b { font-size: 20px; line-height: 1; }
+        .mh-foot-link { display: inline-block; margin-top: 12px; font-size: 12.6px; font-weight: 700; color: #FFFFFF; text-decoration: none; }
+        .mh-foot-logo { margin-top: 44px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 26px; font-weight: 900; letter-spacing: 3px; color: #FFFFFF; }
+        .mh-foot-logo img { display: block; height: 36px; width: auto; }
+        .mh-foot-copy { margin-top: 12px; font-size: 13.2px; letter-spacing: 0.5px; color: #6B7280; }
+        .mh-foot--mo { padding: 28px 18px 26px; }
+        .mh-foot--mo .mh-foot-info { font-size: 11.5px; line-height: 1.8; }
+        .mh-foot--mo .mh-foot-rates { margin-top: 26px; gap: 12px; }
+        .mh-foot--mo .mh-rate { width: 54px; height: 64px; font-size: 9.6px; }
+        .mh-foot--mo .mh-rate b { font-size: 17px; }
+        .mh-foot--mo .mh-foot-logo { margin-top: 32px; font-size: 21px; }
+        .mh-foot--mo .mh-foot-logo img { height: 28px; }
+        .mh-foot--mo .mh-foot-copy { font-size: 12px; }
+
+        /* ---- 구슬 인터랙션 영역 (키비주얼 하단) ---- */
+        .mh-orbs {
+            position: absolute; left: 0; right: 0; bottom: 0; height: 250px; z-index: 0;
+            border-top: 1.5px dashed #94A3B8; background: rgba(255, 255, 255, 0.45);
+        }
+        .mh-orbs-label {
+            position: absolute; right: 20px; top: 12px; padding: 6px 12px; border-radius: 6px;
+            background: #FFFFFF; border: 1px solid #CBD5E1; font-size: 12.6px; font-weight: 800; color: #475569;
+        }
+        .mh-orbs-label small { font-weight: 600; color: #64748B; }
+        .mh-orb { position: absolute; border-radius: 50%; filter: grayscale(1); opacity: 0.85; }
+        .mh-orb-ring {
+            position: absolute; border-radius: 50%; border: 1.5px dashed #64748B;
+            display: flex; align-items: center; justify-content: center; color: #334155; font-size: 22px;
+        }
+        .mh-orb-move { position: absolute; color: #64748B; font-size: 15px; }
+        .mh-orbs--mo { height: 150px; }
+    </style>
+</head>
+<body>
+
+    <aside class="app-sidebar" id="app-sidebar" data-doc-id="SCR-01"></aside>
+
+    <main class="app-main">
+        <header class="app-topbar">
+            <div class="topbar-left-zone">
+                <button class="sidebar-toggle-trigger" id="sidebar-toggle-btn" title="메뉴 열기" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <span class="page-badge">SCR-01</span>
+                <span class="page-heading">랜딩페이지</span>
+            </div>
+            <div class="topbar-page-nav"></div>
+        </header>
+
+        <div class="app-content-body">
+            <div id="pc-spec-view" class="screen-spec-grid">
+
+                <!-- ════════════════════════ 좌 : 와이어프레임 ════════════════════════ -->
+                <div class="canvas-col">
+
+                    <!-- ================= SCR-01 랜딩 메인 ================= -->
+                    <div class="canvas-section" id="screen01" data-screen
+                         data-screen-code="SCR-01" data-screen-label="랜딩 메인">
+                        <div class="canvas-card">
+                            <div class="wf-hub-canvas">
+
+                                <div class="mh-hero">
+                                    <div class="mh-kv-label" data-pin-area>
+                                        <span class="pin pin-abs" data-pin="p5" style="top: -13px; left: -13px;">5</span>
+                                        키비주얼 이미지 · 1920×1080
+                                        <small>영웅들이 들판을 돌격 · 구슬이 주위를 떠다님 (RES-01)</small>
+                                        <small>실제 화면: 좌측 어둡게 + 흰 글자 (핀 5)</small>
+                                    </div>
+
+                                    <!-- 구슬 인터랙션 영역 -->
+                                    <div class="mh-orbs" data-pin-area>
+                                        <span class="pin pin-abs" data-pin="p9" style="top: -13px; left: 14px;">9</span>
+                                        <span class="mh-orbs-label">구슬 인터랙션 영역 · 화면 폭 100% × 250px <small>(마우스 반발 · 충돌 · 합치기)</small></span>
+                                        <div class="mh-orb-ring" style="left: calc(58% - 20px); bottom: 30px; width: 180px; height: 180px;"><i class="fa-solid fa-arrow-pointer"></i></div>
+                                        <i class="fa-solid fa-arrow-left mh-orb-move" style="left: calc(58% - 52px); bottom: 112px;"></i>
+                                        <i class="fa-solid fa-arrow-right mh-orb-move" style="left: calc(58% + 172px); bottom: 112px;"></i>
+                                        <img class="mh-orb" src="img/orb_1.png" alt="" style="left: 4%; bottom: 26px; width: 74px;">
+                                        <img class="mh-orb" src="img/orb_3.png" alt="" style="left: 11%; bottom: 96px; width: 52px;">
+                                        <img class="mh-orb" src="img/orb_2.png" alt="" style="left: 19%; bottom: 18px; width: 84px;">
+                                        <img class="mh-orb" src="img/orb_5.png" alt="" style="left: 30%; bottom: 40px; width: 58px;">
+                                        <img class="mh-orb" src="img/orb_4.png" alt="" style="left: 38%; bottom: 112px; width: 46px;">
+                                        <img class="mh-orb" src="img/orb_2.png" alt="" style="left: 47%; bottom: 22px; width: 64px;">
+                                        <img class="mh-orb" src="img/orb_3.png" alt="" style="left: calc(58% - 96px); bottom: 98px; width: 56px;">
+                                        <img class="mh-orb" src="img/orb_1.png" alt="" style="left: calc(58% + 196px); bottom: 70px; width: 62px;">
+                                        <img class="mh-orb" src="img/orb_4.png" alt="" style="left: 78%; bottom: 20px; width: 80px;">
+                                        <img class="mh-orb" src="img/orb_5.png" alt="" style="left: 86%; bottom: 104px; width: 50px;">
+                                        <img class="mh-orb" src="img/orb_2.png" alt="" style="left: 92%; bottom: 28px; width: 66px;">
+                                    </div>
+
+                                    <!-- GNB -->
+                                    <div class="mh-gnb">
+                                        <div class="hub-container mh-gnb-inner">
+                                            <div data-pin-area style="position: relative;">
+                                                <span class="pin pin-abs" data-pin="p1" style="top: -10px; left: -14px;">1</span>
+                                                <span class="mh-logo-ph" style="width: 150px; height: 52px;">게임 로고<br>(애니메이션)</span>
+                                            </div>
+                                            <div class="mh-gnb-right">
+                                                <div data-pin-area style="position: relative; display: flex; gap: 10px;">
+                                                    <span class="pin pin-abs" data-pin="p2" style="top: -14px; left: -12px;">2</span>
+                                                    <span class="mh-ico" title="Discord"><i class="fa-brands fa-discord"></i></span>
+                                                    <span class="mh-ico" title="Facebook"><i class="fa-brands fa-facebook-f"></i></span>
+                                                </div>
+                                                <div data-pin-area style="position: relative; display: flex; gap: 10px; margin-left: 6px;">
+                                                    <span class="pin pin-abs" data-pin="p3" style="top: -14px; left: -12px;">3</span>
+                                                    <span class="mh-badge"><i class="fa-brands fa-google-play"></i><span><small>GET IT ON</small>Google Play</span></span>
+                                                    <span class="mh-badge"><i class="fa-brands fa-apple"></i><span><small>Download on the</small>App Store</span></span>
+                                                </div>
+                                                <div data-pin-area style="position: relative; margin-left: 6px;">
+                                                    <span class="pin pin-abs" data-pin="p4" style="top: -14px; right: -12px;">4</span>
+                                                    <span class="tp-input mh-lang" data-opts="한국어|English|繁體中文|日本語|Français|ภาษาไทย"><i class="fa-solid fa-globe" style="font-size: 15px;"></i>English <i class="fa-solid fa-chevron-down"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 히어로 본문 -->
+                                    <div class="mh-body">
+                                        <div class="hub-container">
+                                            <div class="mh-col">
+                                                <div data-pin-area style="position: relative;">
+                                                    <span class="pin pin-abs" data-pin="p6" style="top: -12px; left: -14px;">6</span>
+                                                    <span class="mh-logo-ph" style="width: 360px; height: 190px; font-size: 15px;">게임 로고 (대)<br>Merge Ball Hero</span>
+                                                    <div class="mh-title">CBT OPEN!</div>
+                                                    <div class="mh-date">2026.11.23 12:00 – 2026.11.30 11:59</div>
+                                                </div>
+                                                <div data-pin-area style="position: relative;">
+                                                    <span class="pin pin-abs" data-pin="p7" style="top: 22px; right: -14px;">7</span>
+                                                    <a href="javascript:void(0)" class="mh-cta">JOIN CBT NOW <i class="fa-solid fa-arrow-right"></i></a>
+                                                </div>
+                                                <div class="mh-badges" data-pin-area style="position: relative;">
+                                                    <span class="pin pin-abs" data-pin="p8" style="top: -10px; right: -14px;">8</span>
+                                                    <span class="mh-badge mh-badge--lg"><i class="fa-brands fa-google-play"></i><span><small>GET IT ON</small>Google Play</span></span>
+                                                    <span class="mh-badge mh-badge--lg"><i class="fa-brands fa-apple"></i><span><small>Download on the</small>App Store</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- 푸터 -->
+                                <div class="mh-foot" data-pin-area>
+                                    <span class="pin pin-abs" data-pin="p10" style="top: 14px; left: 14px;">10</span>
+                                    <div class="hub-container">
+                                        <div class="mh-foot-info">(주)그라비티 대표이사 : 박현철, KITAMURA YOSHINORI 서울특별시 마포구 월드컵북로 396, 15층(상암동, 누리꿈스퀘어 연구개발타워) 전화문의 : 1588-9897 팩스 : 02 2132-7077 e-mail : webmaster@gravity.co.kr<br>사업자등록번호 : 201-81-56197 <a href="javascript:void(0)">사업자정보확인</a> 통신판매업 신고번호 : 제2008-서울마포-0207호 고객지원센터 : 서울특별시 마포구 월드컵북로 396, 15층(상암동, 누리꿈스퀘어 연구개발타워)</div>
+                                        <div class="mh-foot-rates">
+                                            <span class="mh-rate"><b>₩</b>사행성</span>
+                                            <span class="mh-rate"><b>15</b>15세이용가</span>
+                                        </div>
+                                        <a href="javascript:void(0)" class="mh-foot-link">모바일 개인정보 처리방침</a>
+                                        <div class="mh-foot-logo"><img src="img/gravity_logo_white.png" alt="GRAVITY"></div>
+                                        <div class="mh-foot-copy">© Gravity Co., LTD. All Rights Reserved.</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ════════════════════════ 우 : 디스크립션 ════════════════════════ -->
+                <div class="spec-scroll-panel">
+
+                    <!-- SCR-01 -->
+                    <div class="spec-group" data-screen-for="screen01">
+
+                        <div class="spec-card" id="spec-p1">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p1">1</span>
+                                <span class="spec-card-title" data-edit="title:spec-p1">로고 (GNB)</span>
+                                <span class="spec-card-tag">Link · PPT #6</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p1">
+                                <li>클릭 → 메인(<code>/</code>) 이동</li>
+                                <li>웹팀 제작 애니메이션 로고 사용</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p2">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p2">2</span>
+                                <span class="spec-card-title" data-edit="title:spec-p2">커뮤니티 버튼 (Discord · Facebook)</span>
+                                <span class="spec-card-tag">Link · PPT #1 #2</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p2">
+                                <li>Discord · Facebook 클릭 → 공식 채널 새 탭 이동</li>
+                                <li>링크는 어드민에서 관리</li>
+                                <li>모바일은 햄버거 메뉴 안으로 이동</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p3">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p3">3</span>
+                                <span class="spec-card-title" data-edit="title:spec-p3">스토어 배지 (GNB)</span>
+                                <span class="spec-card-tag">Link · PPT #3 #4</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p3">
+                                <li>Google Play · App Store 클릭 → 각 스토어 페이지 새 탭 이동</li>
+                                <li>링크는 어드민에서 관리</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p4">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p4">4</span>
+                                <span class="spec-card-title" data-edit="title:spec-p4">언어 선택</span>
+                                <span class="spec-card-tag">Select · PPT #5</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p4">
+                                <li>한국어 · English · 繁體中文 · 日本語 · Français · ภาษาไทย 중 선택 → 해당 언어로 전환</li>
+                                <li>첫 진입은 브라우저 언어, 지원 외 언어는 English</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p5">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p5">5</span>
+                                <span class="spec-card-title" data-edit="title:spec-p5">키비주얼</span>
+                                <span class="spec-card-tag">Visual</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p5">
+                                <li>첫 화면 꽉 차게 노출 (1920×1080 기준)</li>
+                                <li>PC 가로 · 모바일 세로 이미지 별도</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p6">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p6">6</span>
+                                <span class="spec-card-title" data-edit="title:spec-p6">게임 로고 · CBT 안내</span>
+                                <span class="spec-card-tag">Text</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p6">
+                                <li>CBT 일정 노출 — 어드민 CBT 시작일 · 종료일 연동</li>
+                                <li>CBT 종료일 이후 → 종료 페이지(SCR-02)로 자동 전환</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p7">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p7">7</span>
+                                <span class="spec-card-title" data-edit="title:spec-p7">마켓 바로가기 CTA</span>
+                                <span class="spec-card-tag">Action · PPT #7</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p7">
+                                <li>JOIN CBT NOW 클릭 → 어드민 CBT CTA 링크로 이동</li>
+                                <li>링크가 없으면 OS별 스토어로 이동 (Android → Google Play, iOS → App Store)</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p8">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p8">8</span>
+                                <span class="spec-card-title" data-edit="title:spec-p8">스토어 배지 (본문)</span>
+                                <span class="spec-card-tag">Link · PPT #8 #9</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p8">
+                                <li>Google Play · App Store 클릭 → 각 스토어 페이지 새 탭 이동 (GNB 배지와 같은 링크)</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p9">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p9">9</span>
+                                <span class="spec-card-title" data-edit="title:spec-p9">구슬 인터랙션 영역</span>
+                                <span class="spec-card-tag">Interaction</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p9">
+                                <li>마우스 · 터치에 반응해 구슬이 밀려나고 튕김</li>
+                                <li>같은 색 구슬끼리 부딪히면 합쳐짐 <span class="tag tag--warn">확정 필요</span></li>
+                                <li>벤치마킹은 RES-01 참고 링크</li>
+                            </ul>
+                        </div>
+
+                        <div class="spec-card" id="spec-p10">
+                            <div class="spec-card-head">
+                                <span class="pin" data-pin="p10">10</span>
+                                <span class="spec-card-title" data-edit="title:spec-p10">푸터</span>
+                                <span class="spec-card-tag">Footer</span>
+                            </div>
+                            <ul class="spec-list" data-edit="list:spec-p10">
+                                <li>GNJOY 공통 푸터 사용</li>
+                                <li>사업자정보확인 · 모바일 개인정보 처리방침 클릭 → 새 탭 이동</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ════════════════════════ MO : 태블릿 1024 + 모바일 360 ════════════════════════ -->
+            <div id="responsive-spec-view" style="display: none; width: 100%;">
+
+                <!-- SCR-01 -->
+                <div class="mo-screen" data-mo-for="screen01">
+                    <div class="mo-stage">
+
+                        <div class="mo-device" data-mo-w="1024">
+                            <div class="mo-device-label">
+                                <span class="mo-dev-name">Tablet</span>
+                                <span class="mo-dev-size">1024</span>
+                                <span class="mo-dev-note">PC 구성 유지 · GNB 항목 그대로</span>
+                            </div>
+                            <div class="mo-frame mo-frame--tab">
+                                <div class="mh-mo-hero mh-mo-hero--tab">
+                                    <div class="mh-orbs mh-orbs--mo"><span class="mh-orbs-label" style="font-size: 11px; right: 10px; top: 8px;">구슬 인터랙션 · 터치 · 마우스</span><img class="mh-orb" src="img/orb_1.png" alt="" style="left: 6%; bottom: 14px; width: 46px;"><img class="mh-orb" src="img/orb_3.png" alt="" style="left: 18%; bottom: 60px; width: 34px;"><img class="mh-orb" src="img/orb_2.png" alt="" style="left: 30%; bottom: 12px; width: 52px;"><img class="mh-orb" src="img/orb_5.png" alt="" style="left: 46%; bottom: 54px; width: 36px;"><img class="mh-orb" src="img/orb_4.png" alt="" style="left: 58%; bottom: 14px; width: 48px;"><img class="mh-orb" src="img/orb_2.png" alt="" style="left: 72%; bottom: 64px; width: 32px;"><img class="mh-orb" src="img/orb_1.png" alt="" style="left: 84%; bottom: 16px; width: 44px;"></div>
+                                    <div class="mh-mo-gnb" style="padding: 16px 24px;">
+                                        <span class="mh-logo-ph" style="width: 120px; height: 44px; font-size: 11.5px;">게임 로고</span>
+                                        <div class="mh-gnb-right">
+                                            <span class="mh-ico"><i class="fa-brands fa-discord"></i></span>
+                                            <span class="mh-ico"><i class="fa-brands fa-facebook-f"></i></span>
+                                            <span class="mh-badge"><i class="fa-brands fa-google-play"></i><span><small>GET IT ON</small>Google Play</span></span>
+                                            <span class="mh-badge"><i class="fa-brands fa-apple"></i><span><small>Download on the</small>App Store</span></span>
+                                            <span class="tp-input mh-lang" data-opts="한국어|English|繁體中文|日本語|Français|ภาษาไทย"><i class="fa-solid fa-globe" style="font-size: 13px;"></i>English <i class="fa-solid fa-chevron-down"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="mh-kv-label" style="right: 6%;">키비주얼 · PC 이미지<br><small>cover · 중앙 기준</small></div>
+                                    <div class="mh-mo-body mh-mo-body--tab">
+                                        <span class="mh-logo-ph" style="width: 280px; height: 150px; font-size: 14px;">게임 로고 (대)</span>
+                                        <div class="mh-mo-title" style="font-size: 48px;">CBT OPEN!</div>
+                                        <div class="mh-mo-date" style="font-size: 18px;">2026.11.23 12:00 – 2026.11.30 11:59</div>
+                                        <a href="javascript:void(0)" class="mh-mo-cta" style="width: 300px; height: 58px; font-size: 18px;">JOIN CBT NOW <i class="fa-solid fa-arrow-right"></i></a>
+                                        <div class="mh-mo-badges" style="width: auto;">
+                                            <span class="mh-badge mh-badge--lg" style="flex: none;"><i class="fa-brands fa-google-play"></i><span><small>GET IT ON</small>Google Play</span></span>
+                                            <span class="mh-badge mh-badge--lg" style="flex: none;"><i class="fa-brands fa-apple"></i><span><small>Download on the</small>App Store</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mh-foot">
+                                    <div class="hub-container">
+                                        <div class="mh-foot-info">(주)그라비티 대표이사 : 박현철, KITAMURA YOSHINORI 서울특별시 마포구 월드컵북로 396, 15층(상암동, 누리꿈스퀘어 연구개발타워) 전화문의 : 1588-9897 팩스 : 02 2132-7077 e-mail : webmaster@gravity.co.kr<br>사업자등록번호 : 201-81-56197 <a href="javascript:void(0)">사업자정보확인</a> 통신판매업 신고번호 : 제2008-서울마포-0207호 고객지원센터 : 서울특별시 마포구 월드컵북로 396, 15층(상암동, 누리꿈스퀘어 연구개발타워)</div>
+                                        <div class="mh-foot-rates">
+                                            <span class="mh-rate"><b>₩</b>사행성</span>
+                                            <span class="mh-rate"><b>15</b>15세이용가</span>
+                                        </div>
+                                        <a href="javascript:void(0)" class="mh-foot-link">모바일 개인정보 처리방침</a>
+                                        <div class="mh-foot-logo"><img src="img/gravity_logo_white.png" alt="GRAVITY"></div>
+                                        <div class="mh-foot-copy">© Gravity Co., LTD. All Rights Reserved.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mo-device" data-mo-w="360">
+                            <div class="mo-device-label">
+                                <span class="mo-dev-name">Mobile</span>
+                                <span class="mo-dev-size">360</span>
+                                <span class="mo-dev-note">햄버거 메뉴 · 세로 키비주얼 · 콘텐츠 가운데 정렬</span>
+                            </div>
+                            <div class="mo-frame mo-frame--mo">
+                                <div class="mo-statusbar"></div>
+                                <div class="mh-mo-hero">
+                                    <div class="mh-orbs mh-orbs--mo"><span class="mh-orbs-label" style="font-size: 11px; right: 10px; top: 8px;">구슬 인터랙션 · 터치 · 드래그</span><img class="mh-orb" src="img/orb_1.png" alt="" style="left: 4%; bottom: 12px; width: 40px;"><img class="mh-orb" src="img/orb_3.png" alt="" style="left: 22%; bottom: 62px; width: 28px;"><img class="mh-orb" src="img/orb_2.png" alt="" style="left: 38%; bottom: 10px; width: 46px;"><img class="mh-orb" src="img/orb_5.png" alt="" style="left: 60%; bottom: 58px; width: 30px;"><img class="mh-orb" src="img/orb_4.png" alt="" style="left: 76%; bottom: 12px; width: 40px;"></div>
+                                    <div class="mh-mo-gnb">
+                                        <span class="mh-logo-ph" style="width: 96px; height: 36px; font-size: 11px;">게임 로고</span>
+                                        <span class="mo-burger mh-mo-burger" title="메뉴 열기"><i class="fa-solid fa-bars"></i></span>
+                                    </div>
+                                    <div class="mh-mo-kv">키비주얼 · 모바일 세로 이미지</div>
+                                    <div style="height: 150px;"></div>
+                                    <div class="mh-mo-body">
+                                        <span class="mh-logo-ph" style="width: 200px; height: 104px; font-size: 13px;">게임 로고 (대)</span>
+                                        <div class="mh-mo-title">CBT OPEN!</div>
+                                        <div class="mh-mo-date">2026.11.23 12:00 – 2026.11.30 11:59</div>
+                                        <a href="javascript:void(0)" class="mh-mo-cta">JOIN CBT NOW <i class="fa-solid fa-arrow-right"></i></a>
+                                        <div class="mh-mo-badges">
+                                            <span class="mh-badge"><i class="fa-brands fa-google-play"></i><span><small>GET IT ON</small>Google Play</span></span>
+                                            <span class="mh-badge"><i class="fa-brands fa-apple"></i><span><small>Download on the</small>App Store</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mh-foot mh-foot--mo">
+                                    <div class="mh-foot-in">
+                                        <div class="mh-foot-info">(주)그라비티 대표이사 : 박현철, KITAMURA YOSHINORI 서울특별시 마포구 월드컵북로 396, 15층(상암동, 누리꿈스퀘어 연구개발타워) 전화문의 : 1588-9897 팩스 : 02 2132-7077 e-mail : webmaster@gravity.co.kr<br>사업자등록번호 : 201-81-56197 <a href="javascript:void(0)">사업자정보확인</a> 통신판매업 신고번호 : 제2008-서울마포-0207호 고객지원센터 : 서울특별시 마포구 월드컵북로 396, 15층(상암동, 누리꿈스퀘어 연구개발타워)</div>
+                                        <div class="mh-foot-rates">
+                                            <span class="mh-rate"><b>₩</b>사행성</span>
+                                            <span class="mh-rate"><b>15</b>15세이용가</span>
+                                        </div>
+                                        <a href="javascript:void(0)" class="mh-foot-link">모바일 개인정보 처리방침</a>
+                                        <div class="mh-foot-logo"><img src="img/gravity_logo_white.png" alt="GRAVITY"></div>
+                                        <div class="mh-foot-copy">© Gravity Co., LTD. All Rights Reserved.</div>
+                                    </div>
+                                </div>
+
+                                <div class="mo-drawer">
+                                    <div class="mo-drawer-panel mh-full">
+                                        <div class="mh-menu-head">
+                                            <span class="mh-logo-ph" style="width: 96px; height: 36px; font-size: 11px;">게임 로고</span>
+                                            <span class="mo-drawer-close mh-menu-x" title="메뉴 닫기"><i class="fa-solid fa-xmark"></i></span>
+                                        </div>
+                                        <div class="mh-menu-body">
+                                            <div class="mh-menu-cap">LANGUAGE</div>
+                                            <div class="tp-input mh-menu-select" data-opts="한국어|English|繁體中文|日本語|Français|ภาษาไทย">English <i class="fa-solid fa-chevron-down" style="font-size: 12px;"></i></div>
+                                            <div class="mh-menu-cap">COMMUNITY</div>
+                                            <span class="mh-menu-btn"><i class="fa-brands fa-discord"></i>Discord<i class="fa-solid fa-arrow-up-right-from-square ar"></i></span>
+                                            <span class="mh-menu-btn"><i class="fa-brands fa-facebook-f"></i>Facebook<i class="fa-solid fa-arrow-up-right-from-square ar"></i></span>
+                                            <div class="mh-menu-cap">DOWNLOAD</div>
+                                            <div class="mh-menu-badges">
+                                                <span class="mh-badge"><i class="fa-brands fa-google-play"></i><span><small>GET IT ON</small>Google Play</span></span>
+                                                <span class="mh-badge"><i class="fa-brands fa-apple"></i><span><small>Download on the</small>App Store</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+    <script src="spec.js"></script>
+</body>
+</html>
